@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Example</title>
+</head>
+<body>
+<h1>Example</h1>
+<hr>
+<h4>Панель администратора</h4>
+<table border="1">
+    <tr>
+        <th>Email</th>
+        <th>Номер телефона</th>
+        <th>Активность</th>
+        <th>Роли</th>
+        <th>Забанить</th>
+        <th>Редактирование</th>
+        <th>Подробная информация</th>
+    </tr>
+    <div th:each="user: ${users}">
+        <tr>
+            <th th:text="${user.email}"></th>
+            <th th:text="${user.phoneNumber}"></th>
+            <th th:if="${user.active}">True</th>
+            <th th:unless="${user.active}">False</th>
+            <th th:if="${user.isAdmin()}">Admin</th>
+            <th th:unless="${user.isAdmin()}">User</th>
+            <th>
+                <form th:action="@{'/admin/user/ban/' + ${user.id}}" method="post">
+                    <input type="hidden" name="_csrf" value="${_csrf.token}">
+                    <input type="submit" value="Бан">
+                </form>
+            </th>
+            <th><a th:href="@{'/admin/user/edit/' + ${user.id}}">Редактирование</a></th>
+            <th><a th:href="@{'/user/' + ${user.id}}">Подробная информация</a></th>
+        </tr>
+    </div>
+</table>
+</body>
+</html>

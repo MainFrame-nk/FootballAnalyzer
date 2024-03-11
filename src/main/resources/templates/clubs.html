@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Football Analyser</title>
+</head>
+<body>
+<h1>Football Analyser</h1>
+<hr>
+<div th:if="${user.email}">
+    <h3>Имя пользователя: <i th:text="${user.name}"></i></h3>
+    <form th:action="@{/logout}" method="post">
+        <input type="hidden" name="_csrf" value="${_csrf.token}">
+        <input type="submit" value="Выйти"/>
+    </form>
+    <div th:if="${user.isAdmin()}">
+        <a th:href="@{/admin}">Панель администратора</a>
+    </div>
+</div>
+<div th:unless="${user.email}">
+    <a th:href="@{/login}">Войти</a>
+</div>
+<hr>
+<h4>Футбольные клубы</h4>
+<form action="/" method="get">
+    Поиск по названию клуба: <input type="text" name="name"><br>
+    <input type="submit" value="Поиск"/>
+</form>
+<div th:each="club: ${clubs}">
+    <p><b th:text="${club.name}"></b> | <a th:href="@{'/club/' + ${club.id}}">Подробнее...</a></p>
+    <p></p>
+</div>
+<hr>
+<h3>Добавить клуб</h3>
+<form action="/club/create" method="post" enctype="multipart/form-data">
+    Название клуба: <input type="text" name="name"/><br><br>
+    Страна: <input type="text" name="country"/><br><br>
+    Лига: <input type="text" name="league"/><br><br>
+    Логотип клуба: <input type="file" name="file"/> <br><br>
+    <input type="submit" value="Добавить клуб"/>
+</form>
+<!--<table>-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--        <td>Страна</td>-->
+<!--        <td>Название</td>-->
+<!--        <td>Лига</td>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody th:each="club: ${clubs}">-->
+<!--    <tr>-->
+<!--        <td th:text="${club.country}">Страна</td>-->
+<!--        <td th:text="${club.name}">Название</td>-->
+<!--        <td th:text="${club.league}">Лига</td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--</table>-->
+</body>
+</html>

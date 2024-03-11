@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Example</title>
+</head>
+<body>
+<h1>Example</h1>
+<hr>
+<h3>Редактирование пользователя <span th:text="${user.name}"></span></h3>
+<form th:action="@{/admin/user/edit/}" method="post">
+    <div th:each="role: ${roles}">
+        <label><input type="checkbox" th:name="${role}" th:text="${role}">
+        </label>
+    </div>
+    <input type="hidden" th:value="${user.id}" name="userId">
+    <input type="hidden" th:value="${_csrf.token}" name="_csrf">
+    <button type="submit">Сохранить</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Example</title>
+</head>
+<body>
+<h1>Example</h1>
+<hr>
+<h3>Редактирование клуба <span th:text="${club.name}"></span></h3>
+<form th:action="@{/admin/club/edit/}" method="post">
+<!--    <img th:src="@{'/images/' + ${logotype.id}}" height="60px" th:alt="${club.name}"><br><br>-->
+    <b>Название клуба: </b><span th:text="${club.name}"></span><br>
+    <b>Страна: </b><span th:text="${club.country}"></span><br>
+    <b>Лига: </b><span th:text="${club.league}"></span><br>
+    <input type="hidden" th:value="${club.id}" name="clubId">
+    <button type="submit">Сохранить</button>
+</form>
+</body>
+</html>
